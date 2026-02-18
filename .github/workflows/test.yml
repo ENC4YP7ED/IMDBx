@@ -40,6 +40,8 @@ jobs:
         run: pip install pytest pytest-cov
 
       - name: Run tests
+        env:
+          PYTHONUTF8: "1"
         run: imdbx --test
 
       - name: Run tests with coverage (Linux + 3.12 only)
