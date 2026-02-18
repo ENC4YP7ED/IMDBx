@@ -1,0 +1,115 @@
+# ─────────────────────────────────────────────────────────────────────────────
+#  Publish IMDBx to PyPI on GitHub release
+#
+#  Uses OIDC trusted publishing — no API keys or secrets needed.
+#
+#  One-time setup:
+#    1. Go to https://pypi.org/manage/account/publishing/
+#    2. Add a trusted publisher:
+#         Owner:       ENC4YP7ED
+#         Repository:  IMDBx
+#         Workflow:    publish.yml
+#         Environment: pypi
+#    3. In repo Settings → Environments, create two environments:
+#         "testpypi"  (no protection rules needed)
+#         "pypi"      (add a required reviewer for safety)
+#
+#  To cut a release:
+#    git tag v1.0.0 && git push origin v1.0.0
+#    Then publish a GitHub Release from that tag — this workflow fires automatically.
+#
+#  Pipeline:
+#    tests → build sdist + wheel → TestPyPI → PyPI
+# ─────────────────────────────────────────────────────────────────────────────
+name: Publish to PyPI
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+  id-token: write   # required for OIDC trusted publishing
+
+jobs:
+  # ── 1. Run the full test suite before publishing anything ─────────────────
+  test:
+    name: Pre-publish tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install package
+        run: pip install -e "."
+
+      - name: Install test dependencies
+        run: pip install pytest pytest-cov
+
+      - name: Run test suite
+        run: imdbx --test
+
+  # ── 2. Build source distribution and wheel ────────────────────────────────
+  build:
+    name: Build distribution
+    runs-on: ubuntu-latest
+    needs: test
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install build tools
+        run: pip install build
+
+      - name: Build sdist and wheel
+        run: python -m build
+
+      - name: Store build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
+  # ── 3. Publish to TestPyPI first ──────────────────────────────────────────
+  publish-testpypi:
+    name: Publish → TestPyPI
+    runs-on: ubuntu-latest
+    needs: build
+    environment: testpypi
+
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
+      - name: Publish to TestPyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          repository-url: https://test.pypi.org/legacy/
+
+  # ── 4. Publish to PyPI ────────────────────────────────────────────────────
+  publish-pypi:
+    name: Publish → PyPI
+    runs-on: ubuntu-latest
+    needs: publish-testpypi
+    environment: pypi
+
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
+      - name: Publish to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
