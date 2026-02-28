@@ -1,3 +1,42 @@
+Metadata-Version: 2.4
+Name: IMDBx
+Version: 1.0.0
+Summary: IMDBx - Titles, ratings, air dates, descriptions and cover art across every episode of any TV series.
+Author-email: IMDBx <imdbx@imdbx.dev>
+License: MIT
+Project-URL: Homepage, https://github.com/ENC4YP7ED/IMDBx
+Project-URL: Repository, https://github.com/ENC4YP7ED/IMDBx
+Project-URL: Bug Tracker, https://github.com/ENC4YP7ED/IMDBx/issues
+Project-URL: Changelog, https://github.com/ENC4YP7ED/IMDBx/releases
+Keywords: imdbx,scraper,episodes,tv,anime,playwright,beautifulsoup
+Classifier: Development Status :: 4 - Beta
+Classifier: Environment :: Console
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: End Users/Desktop
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Natural Language :: English
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Topic :: Internet :: WWW/HTTP :: Indexing/Search
+Classifier: Topic :: Multimedia :: Video
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Typing :: Typed
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: niquests>=3.0
+Requires-Dist: beautifulsoup4>=4.12
+Requires-Dist: playwright>=1.40
+Provides-Extra: dev
+Requires-Dist: pytest>=8.0; extra == "dev"
+Requires-Dist: pytest-cov>=5.0; extra == "dev"
+Requires-Dist: ruff>=0.4; extra == "dev"
+Dynamic: license-file
+
 # IMDBx Series Scraper
 
 [![PyPI](https://img.shields.io/pypi/v/IMDBx)](https://pypi.org/project/IMDBx/)
@@ -5,7 +44,7 @@
 [![CI](https://github.com/ENC4YP7ED/IMDBx/actions/workflows/test.yml/badge.svg)](https://github.com/ENC4YP7ED/IMDBx/actions/workflows/test.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-IMDBx - Titles, ratings, air dates, descriptions and cover art across every episode of any IMDb TV series.
+IMDBx - Titles, ratings, air dates, descriptions and cover art across every episode of any TV series.
 
 ---
 
@@ -20,7 +59,7 @@ Chromium is downloaded automatically the first time you run a scrape — no extr
 For development (includes pytest, ruff, coverage):
 
 ```bash
-pip install "IMDBx[dev]"
+pip install IMDBx
 ```
 
 ---
@@ -175,7 +214,7 @@ imdbx --test tt7441658
 imdbx --test tt0903747
 ```
 
-`--test` alone runs `pytest` on the bundled test suite and exits with pytest's return code (0 = all passed). Requires `pip install "IMDBx[dev]"`.
+`--test` alone runs `pytest` on the bundled test suite and exits with pytest's return code (0 = all passed). Requires `pip install IMDBx`.
 
 `--test <TITLE_ID>` hits the real IMDBx API, verifies that metadata and episode data are populated correctly, and prints a coloured ✓/✗ summary. Requires a network connection and Playwright/Chromium.
 
@@ -188,12 +227,13 @@ imdbx/
 ├── __init__.py     ← public API  (title, season, episode, metadata, load)
 ├── models.py       ← dataclasses (TitleInfo, SeriesMetadata, Episode)
 ├── cli.py          ← imdbx command — all flags with full help text
-├── _scraper.py     ← orchestration: coordinates HTTP + browser + images
-├── _http.py        ← niquests connection pool + async image downloader
-├── _browser.py     ← Playwright pool + "Show more" expansion detection
-├── _parse.py       ← BeautifulSoup parsers (zero hardcoded class names)
-├── _display.py     ← terminal colour output
-└── _log.py         ← shared ANSI colour helpers + debug flag
+├── src/
+│   ├── _scraper.py ← orchestration: coordinates HTTP + browser + images
+│   ├── _http.py    ← niquests connection pool + async image downloader
+│   ├── _browser.py ← Playwright pool + "Show more" expansion detection
+│   ├── _parse.py   ← BeautifulSoup parsers (zero hardcoded class names)
+│   ├── _display.py ← terminal colour output
+│   └── _log.py     ← shared ANSI colour helpers + debug flag
 tests/
 ├── test_models_episode_dataclass.py   ← Episode field and repr tests
 ├── test_models_series_title_info.py   ← TitleInfo + save/load round-trip
@@ -214,7 +254,7 @@ Three-layer hybrid approach:
 
 ```bash
 # Via pytest directly
-pip install "IMDBx[dev]"
+pip install IMDBx
 pytest
 
 # Via the CLI — same result, no pytest command needed
@@ -230,7 +270,7 @@ imdbx --test tt7441658
 
 1. Fork the repository
 2. Create a feature branch: `git checkout -b feat/my-change`
-3. Install dev dependencies: `pip install -e ".[dev]"`
+3. Install dev dependencies: `pip install -e "."`
 4. Make your changes and add tests
 5. Verify everything passes: `imdbx --test`
 6. Open a pull request

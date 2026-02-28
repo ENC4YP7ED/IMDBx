@@ -20,7 +20,7 @@ from ._parse   import parse_series_metadata, parse_season_numbers, parse_episode
 from ._log     import dbg, c, C
 from .models import TitleInfo, Episode, SeriesMetadata
 
-BASE_URL = "https://www.imdbx.com"
+BASE_URL = "https://www.imdb.com"
 
 
 # ─── Season number discovery ──────────────────────────────────────────────────

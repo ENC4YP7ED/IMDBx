@@ -74,7 +74,7 @@ from ._parse import parse_series_metadata
 from ._log import set_debug
 from ._display import print_title
 
-BASE_URL = "https://www.imdbx.com"
+BASE_URL = "https://www.imdb.com"
 
 __all__ = [
     # Public functions
@@ -110,7 +110,7 @@ def title(
     Parameters
     ----------
     title_id:
-        IMDBx title ID (the ``tt…`` part of any IMDBx URL).
+        IMDb title ID (the ``tt…`` part of any IMDb URL).
         e.g. ``"tt7441658"`` for Black Clover.
     seasons:
         Optionally restrict to a subset of season numbers.

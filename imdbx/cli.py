@@ -66,7 +66,7 @@ def _run_tests() -> None:
 
 
 def _run_smoke_test(tt_id: str) -> None:
-    """Run a live smoke test against a real IMDBx title ID."""
+    """Run a live smoke test against a real IMDb title ID."""
     import traceback
 
     print(f"\n{c('▸  Smoke test', C.BWHITE, C.BOLD)}: {c(tt_id, C.BCYAN)}\n")
@@ -144,7 +144,7 @@ def main() -> None:
         prog="imdbx",
         description=(
             f"{c('IMDBx Scraper', C.BWHITE, C.BOLD)}\n"
-            f"{c('Scrape episode titles, ratings, descriptions and cover art for any IMDBx TV series.', C.DIM)}\n\n"
+            f"{c('Scrape episode titles, ratings, descriptions and cover art for any IMDb TV series.', C.DIM)}\n\n"
             f"{c('Requirements:', C.BYELLOW)}  "
             f"pip install IMDBx  &&  playwright install chromium\n\n"
             f"{c('Examples:', C.BYELLOW)}\n"
@@ -168,7 +168,7 @@ def main() -> None:
         default=None,
         metavar="TITLE_ID",
         help=(
-            "The IMDBx title ID to scrape — the 'tt…' code from any IMDBx URL.  "
+            "The IMDb title ID to scrape — the 'tt…' code from any IMDb URL.  "
             "Example: tt7441658 for Black Clover, tt0903747 for Breaking Bad.  "
             "Required unless --load or --test is used."
         ),
@@ -286,7 +286,7 @@ def main() -> None:
             "Requires the  extras (pip install IMDBx).  "
             "Exits with pytest's return code (0 = all passed).\n"
             "  --test tt7441658    Run a live end-to-end smoke test against the given "
-            "IMDBx title.  Fetches real metadata and the first season, checks that "
+            "IMDb title.  Fetches real metadata and the first season, checks that "
             "key fields are populated, and prints a coloured pass/fail summary.  "
             "Requires a network connection and Playwright/Chromium."
         ),

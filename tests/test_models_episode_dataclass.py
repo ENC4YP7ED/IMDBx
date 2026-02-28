@@ -20,7 +20,7 @@ def make_episode(**kwargs) -> Episode:
         rating            = "7.6/10 (1.6K)",
         cover_image       = "https://m.media-amazon.com/images/test.jpg",
         cover_image_local = None,
-        imdb_url          = "https://www.imdbx.com/title/tt7462664/",
+        imdb_url          = "https://www.imdb.com/title/tt7462664/",
     )
     defaults.update(kwargs)
     return Episode(**defaults)

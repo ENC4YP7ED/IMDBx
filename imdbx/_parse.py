@@ -23,7 +23,7 @@ from bs4 import BeautifulSoup, Tag
 
 from .models import Episode, SeriesMetadata
 
-BASE_URL = "https://www.imdbx.com"
+BASE_URL = "https://www.imdb.com"
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -227,7 +227,7 @@ def _find_description(card: Tag) -> str:
 
 
 def _find_rating(card: Tag) -> str:
-    for testid in ("ratingGroup--imdbx-rating", "ratingGroup--container"):
+    for testid in ("ratingGroup--imdb-rating", "ratingGroup--container"):
         node = card.find(attrs={"data-testid": testid})
         if node:
             m = re.search(r"([\d.]+)", node.get("aria-label", ""))
