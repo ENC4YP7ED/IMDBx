@@ -63,6 +63,12 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Optional
 import json
+from importlib.metadata import version as _pkg_version, PackageNotFoundError as _PNF
+
+try:
+    __version__ = _pkg_version("IMDBx")
+except _PNF:
+    __version__ = "0.0.0.dev"
 
 # ── Re-export public dataclasses ──────────────────────────────────────────────
 from .models import TitleInfo, SeriesMetadata, Episode
