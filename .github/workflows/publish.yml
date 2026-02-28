@@ -52,6 +52,8 @@ jobs:
         run: pip install pytest pytest-cov
 
       - name: Run test suite
+        env:
+          PYTHONUTF8: "1"
         run: imdbx --test
 
   # ── 2. Build source distribution and wheel ────────────────────────────────

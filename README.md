@@ -20,7 +20,7 @@ Chromium is downloaded automatically the first time you run a scrape — no extr
 For development (includes pytest, ruff, coverage):
 
 ```bash
-pip install IMDBx
+pip install "IMDBx[dev]"
 ```
 
 ---
@@ -175,7 +175,7 @@ imdbx --test tt7441658
 imdbx --test tt0903747
 ```
 
-`--test` alone runs `pytest` on the bundled test suite and exits with pytest's return code (0 = all passed). Requires `pip install IMDBx`.
+`--test` alone runs `pytest` on the bundled test suite and exits with pytest's return code (0 = all passed). Requires `pip install "IMDBx[dev]"`.
 
 `--test <TITLE_ID>` hits the real IMDBx API, verifies that metadata and episode data are populated correctly, and prints a coloured ✓/✗ summary. Requires a network connection and Playwright/Chromium.
 
@@ -188,13 +188,12 @@ imdbx/
 ├── __init__.py     ← public API  (title, season, episode, metadata, load)
 ├── models.py       ← dataclasses (TitleInfo, SeriesMetadata, Episode)
 ├── cli.py          ← imdbx command — all flags with full help text
-├── src/
-│   ├── _scraper.py ← orchestration: coordinates HTTP + browser + images
-│   ├── _http.py    ← niquests connection pool + async image downloader
-│   ├── _browser.py ← Playwright pool + "Show more" expansion detection
-│   ├── _parse.py   ← BeautifulSoup parsers (zero hardcoded class names)
-│   ├── _display.py ← terminal colour output
-│   └── _log.py     ← shared ANSI colour helpers + debug flag
+├── _scraper.py     ← orchestration: coordinates HTTP + browser + images
+├── _http.py        ← niquests connection pool + async image downloader
+├── _browser.py     ← Playwright pool + "Show more" expansion detection
+├── _parse.py       ← BeautifulSoup parsers (zero hardcoded class names)
+├── _display.py     ← terminal colour output
+└── _log.py         ← shared ANSI colour helpers + debug flag
 tests/
 ├── test_models_episode_dataclass.py   ← Episode field and repr tests
 ├── test_models_series_title_info.py   ← TitleInfo + save/load round-trip
@@ -215,7 +214,7 @@ Three-layer hybrid approach:
 
 ```bash
 # Via pytest directly
-pip install IMDBx
+pip install "IMDBx[dev]"
 pytest
 
 # Via the CLI — same result, no pytest command needed
@@ -231,7 +230,7 @@ imdbx --test tt7441658
 
 1. Fork the repository
 2. Create a feature branch: `git checkout -b feat/my-change`
-3. Install dev dependencies: `pip install -e "."`
+3. Install dev dependencies: `pip install -e ".[dev]"`
 4. Make your changes and add tests
 5. Verify everything passes: `imdbx --test`
 6. Open a pull request
