@@ -105,11 +105,13 @@ def parse_series_metadata(soup: BeautifulSoup, title_id: str) -> SeriesMetadata:
     # ── Tags via /interest/ href pattern ─────────────────────────────────────
     # Every interest/genre tag links to /interest/inXXXXXXX/ — this structural
     # pattern is far more stable than any CSS class name.
-    tags = [
-        a.get_text(strip=True)
-        for a in soup.find_all("a", href=re.compile(r"^/interest/"))
-        if a.get_text(strip=True)
-    ]
+    seen: set[str] = set()
+    tags: list[str] = []
+    for a in soup.find_all("a", href=re.compile(r"^/interest/in\d+")):
+        text = a.get_text(strip=True)
+        if text and text not in seen:
+            seen.add(text)
+            tags.append(text)
     if tags:
         meta.tags = tags
 
