@@ -244,6 +244,9 @@ imdbx --test tt7441658
 
 ## Changelog
 
+### 1.1.5
+- Added changelog to README
+
 ### 1.1.4
 - `imdbx.__version__` now reflects the installed package version via `importlib.metadata`
 
