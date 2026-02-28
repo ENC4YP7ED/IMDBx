@@ -242,6 +242,28 @@ imdbx --test tt7441658
 
 ---
 
+## Changelog
+
+### 1.1.4
+- `imdbx.__version__` now reflects the installed package version via `importlib.metadata`
+
+### 1.1.3
+- Fixed `AttributeError: type object 'C' has no attribute 'BRED'` that crashed `imdbx --test` and smoke-test error output
+
+### 1.1.2
+- Fixed `air_date` parsing returning episode title prefix alongside the date (e.g. `S1.E1 ∙ PilotSun, Jan 20, 2008`); inline `span`/`time` elements are now searched before `div` containers
+
+### 1.1.1
+- Fixed `imdbx --test` from a PyPI install incorrectly resolving to another package's `tests/` directory
+- Fixed `SyntaxError` on Python 3.10/3.11 caused by backslash inside f-string expressions
+
+### 1.1.0
+- Switched scraping target from imdbx.com to imdb.com
+- Fixed genre tag deduplication and filtering of IMDb navigation links
+- Initial public release
+
+---
+
 ## License
 
 MIT — see [LICENSE](LICENSE) for details.
