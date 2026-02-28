@@ -43,7 +43,7 @@ def _run_tests() -> None:
     except ImportError:
         print(
             f"{c('✗  pytest not found.', C.BRED, C.BOLD)}  "
-            f"Install dev extras:  {c('pip install IMDBx', C.BCYAN)}",
+            f"Install dev extras:  {c('pip install \"IMDBx[dev]\"', C.BCYAN)}",
             file=sys.stderr,
         )
         sys.exit(1)
@@ -53,9 +53,11 @@ def _run_tests() -> None:
     pkg_root  = Path(__file__).parent.parent
     tests_dir = pkg_root / "tests"
 
-    if not tests_dir.exists():
+    if not tests_dir.exists() or not (tests_dir / "test_models_episode_dataclass.py").exists():
         print(
-            f"{c('✗  tests/ directory not found at', C.BRED, C.BOLD)} {tests_dir}",
+            f"{c('✗  IMDBx tests not found.', C.BRED, C.BOLD)}  "
+            f"Run from a source checkout:  "
+            f"{c('git clone https://github.com/ENC4YP7ED/IMDBx && pip install -e \".[dev]\"', C.BCYAN)}",
             file=sys.stderr,
         )
         sys.exit(1)

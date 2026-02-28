@@ -212,15 +212,20 @@ Three-layer hybrid approach:
 
 ## Running tests
 
+Tests require a source checkout:
+
 ```bash
+git clone https://github.com/ENC4YP7ED/IMDBx
+cd IMDBx
+pip install -e ".[dev]"
+
 # Via pytest directly
-pip install "IMDBx[dev]"
 pytest
 
-# Via the CLI — same result, no pytest command needed
+# Via the CLI — same result
 imdbx --test
 
-# Live smoke test against a real title
+# Live smoke test against a real title (network + Chromium required)
 imdbx --test tt7441658
 ```
 
