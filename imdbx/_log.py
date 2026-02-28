@@ -41,6 +41,7 @@ class C:
     BLUE    = "\033[34m"
     CYAN    = "\033[36m"
     WHITE   = "\033[37m"
+    BRED    = "\033[91m"
     BGREEN  = "\033[92m"
     BYELLOW = "\033[93m"
     BBLUE   = "\033[94m"
