@@ -196,7 +196,11 @@ def _find_air_date(card: Tag) -> str:
         r"|\d{1,2}\s+\w+\s+\d{4}|\d{4}-\d{2}-\d{2}",
         re.I,
     )
-    for tag in card.find_all(["span", "div", "time"]):
+    for tag in card.find_all(["span", "time"]):
+        text = tag.get_text(strip=True)
+        if DATE.search(text) and len(text) < 50:
+            return text
+    for tag in card.find_all("div"):
         text = tag.get_text(strip=True)
         if DATE.search(text) and len(text) < 50:
             return text
