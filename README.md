@@ -1,4 +1,4 @@
-# IMDBx Series Scraper
+# IMDBx
 
 [![PyPI](https://img.shields.io/pypi/v/IMDBx)](https://pypi.org/project/IMDBx/)
 [![Python](https://img.shields.io/pypi/pyversions/IMDBx)](https://pypi.org/project/IMDBx/)
